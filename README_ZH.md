@@ -1,20 +1,21 @@
 # dynamic-module-plugin
-A webpack plugin used to define a dynamic module. It will replace the module if the given id hits a existing one.  
-Languages: [English]() | [简体中文](./README_ZH.md)
+一个可以定义动态模块的webpack插件；如果你给出ID已有存在的模块与之对应将会被替换  
+语言: [English](./README.md) | [简体中文](./README_ZH.md)
 
 ## API
 **defineDynamicModule(id: string, content: string, context?: string)**  
-Define a dynamic module  
+定义一个动态模块
 
 **purgeDynamicModule(id: string, content: string, context?: string)**  
-Purge a dynamic module you defined
+删除一个你定义的动态模块
 
-## Getting Started
-To begin, you'll need to install dynamic-module-plugin:
+## 使用方法
+首先，安装插件
 ```bash
 npm install -D @svmio/dynamic-module-plugin
 ```
-Then add the plugin to your webpack config. For example:
+
+在webpack配置中添加插件
 
 **webpack.config.js**
 
@@ -35,7 +36,7 @@ module.exports = {
 };
 ```
 
-Now, you can use the dynamic module you defined：
+在需要的地方直接import即可
 
 **app.js**
 
