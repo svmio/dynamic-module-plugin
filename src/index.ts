@@ -4,18 +4,18 @@ import {fs} from 'memfs'
 import {isRelativePath} from './util';
 
 // for webpack 4
-declare interface Storage{
+interface Storage{
   data: Map<string, any> | Record<string, any>
 }
 
 // for webpack 5
-declare interface Backend{
+interface Backend{
   _data: Map<string, any>
   _levels: any[]
   _currentLevel: number
 }
 
-export declare interface DynamicFs{
+interface DynamicFs{
   _statStorage: Storage
   _readFileStorage: Storage
   _statBackend: Backend
@@ -92,9 +92,9 @@ export function resolveModuleId(id: string, context?: string){
   return id
 }
 
-function registerDynamicModule(id: string, content: string, context?: string){
+function defineDynamicModule(id: string, content: string, context?: string){
   try {
-    id = resolveModuleId(id)
+    id = resolveModuleId(id, context)
     const baseDir = path.dirname(id)
     if(!fs.existsSync(baseDir)) {
       fs.mkdirpSync(baseDir)
@@ -106,4 +106,14 @@ function registerDynamicModule(id: string, content: string, context?: string){
   }
 }
 
-export {DynamicModulePlugin, registerDynamicModule}
+function purgeDynamicModule(id: string, content: string, context?: string){
+  id = resolveModuleId(id, context)
+  if(store.has(id)){
+    if(fs.existsSync(id)){
+      fs.unlinkSync(id)
+    }
+    store.delete(id)
+  }
+}
+
+export {DynamicModulePlugin, defineDynamicModule, purgeDynamicModule}

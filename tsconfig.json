@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "lib",
+    "outDir": "dist",
     "sourceMap": false,
     "target": "es2015",
     "module": "commonjs",
