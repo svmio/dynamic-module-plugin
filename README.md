@@ -3,10 +3,10 @@ A webpack plugin used to define a dynamic module. It will replace the module if 
 Languages: [English]() | [简体中文](./README_ZH.md)
 
 ## API
-**defineDynamicModule(id: string, content: string, context?: string)**  
+**defineDynamic(id: string, content: string, context?: string)**  
 Define a dynamic module  
 
-**purgeDynamicModule(id: string, content: string, context?: string)**  
+**purgeDynamic(id: string, content: string, context?: string)**  
 Purge a dynamic module you defined
 
 ## Getting Started
@@ -19,9 +19,9 @@ Then add the plugin to your webpack config. For example:
 **webpack.config.js**
 
 ```js
-const {DynamicModulePlugin,defineDynamicModule} = require("@svmio/dynamic-module-plugin");
+const {DynamicModulePlugin,defineDynamic} = require("@svmio/dynamic-module-plugin");
 
-defineDynamicModule(
+defineDynamic(
     './a-dynamic-module.js',
   `import React from 'react';
 export default function Test(){

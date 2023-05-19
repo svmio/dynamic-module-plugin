@@ -92,7 +92,7 @@ export function resolveModuleId(id: string, context?: string){
   return id
 }
 
-function defineDynamicModule(id: string, content: string, context?: string){
+function defineDynamic(id: string, content: string, context?: string){
   try {
     id = resolveModuleId(id, context)
     const baseDir = path.dirname(id)
@@ -106,7 +106,7 @@ function defineDynamicModule(id: string, content: string, context?: string){
   }
 }
 
-function purgeDynamicModule(id: string, context?: string){
+function purgeDynamic(id: string, context?: string){
   id = resolveModuleId(id, context)
   if(store.has(id)){
     if(fs.existsSync(id)){
@@ -116,4 +116,4 @@ function purgeDynamicModule(id: string, context?: string){
   }
 }
 
-export {DynamicModulePlugin, defineDynamicModule, purgeDynamicModule}
+export {DynamicModulePlugin, defineDynamic, purgeDynamic}
