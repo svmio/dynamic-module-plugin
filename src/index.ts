@@ -24,8 +24,6 @@ interface DynamicFs{
 
 const NS = 'DynamicModulePlugin'
 
-const store = new Set<string>()
-
 class DynamicModulePlugin {
 
   fileSystem: DynamicFs
@@ -36,7 +34,7 @@ class DynamicModulePlugin {
     compiler.hooks.normalModuleFactory.tap(NS, function(factory){
       factory.hooks.beforeResolve.tap(NS, function(result){
         const id = resolveModuleId(result.request, result.context)
-        if(store.has(id)){
+        if(fs.existsSync(id)){
           self.registerModule(id)
         }
       })
@@ -75,10 +73,6 @@ class DynamicModulePlugin {
   }
 
   registerModule(id: string){
-    id = resolveModuleId(id)
-    if(!store.has(id)) {
-      return;
-    }
     this.registerStats(id)
     this.registerFileBuffer(id)
   }
@@ -100,19 +94,15 @@ function defineDynamicModule(id: string, content: string, context?: string){
       fs.mkdirpSync(baseDir)
     }
     fs.writeFileSync(id, content)
-    store.add(id)
   }catch (e){
     throw new Error(e.message)
   }
 }
 
-function purgeDynamicModule(id: string, content: string, context?: string){
+function purgeDynamicModule(id: string, context?: string){
   id = resolveModuleId(id, context)
-  if(store.has(id)){
-    if(fs.existsSync(id)){
-      fs.unlinkSync(id)
-    }
-    store.delete(id)
+  if(fs.existsSync(id)){
+    fs.unlinkSync(id)
   }
 }
 
