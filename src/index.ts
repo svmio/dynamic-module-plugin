@@ -106,7 +106,7 @@ function defineDynamicModule(id: string, content: string, context?: string){
   }
 }
 
-function purgeDynamicModule(id: string, content: string, context?: string){
+function purgeDynamicModule(id: string, context?: string){
   id = resolveModuleId(id, context)
   if(store.has(id)){
     if(fs.existsSync(id)){
